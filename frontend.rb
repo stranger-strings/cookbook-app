@@ -14,7 +14,16 @@ if input_option == "1"
   recipes = response.body
   pp recipes
 elsif input_option == "2"
-  response = Unirest.post("http://localhost:3000/recipes?input_title=Test&input_chef=Peter&input_ingredients=Salt&input_directions=Salty")
+  params = {}
+  print "Enter a recipe title: "
+  params["input_title"] = gets.chomp
+  print "Enter a recipe chef: "
+  params["input_chef"] = gets.chomp
+  print "Enter a recipe ingredients: "
+  params["input_ingredients"] = gets.chomp
+  print "Enter a recipe directions: "
+  params["input_directions"] = gets.chomp
+  response = Unirest.post("http://localhost:3000/recipes", parameters: params)
   recipe = response.body
   pp recipe
 elsif input_option == "3"
