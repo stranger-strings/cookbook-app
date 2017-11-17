@@ -36,15 +36,22 @@ elsif input_option == "3"
 elsif input_option == "4"
   print "Which recipe id do you want to update? "
   recipe_id = gets.chomp
+  
+  response = Unirest.get("http://localhost:3000/recipes/#{recipe_id}")
+  recipe = response.body
+
   params = {}
-  print "Enter the updated recipe title: "
+  print "Enter the updated recipe title (#{recipe["title"]}): "
   params["input_title"] = gets.chomp
-  print "Enter the updated recipe chef: "
+  print "Enter the updated recipe chef (#{recipe["chef"]}): "
   params["input_chef"] = gets.chomp
-  print "Enter the updated recipe ingredients: "
+  print "Enter the updated recipe ingredients (#{recipe["ingredients"]}): "
   params["input_ingredients"] = gets.chomp
-  print "Enter the updated recipe directions: "
+  print "Enter the updated recipe directions (#{recipe["directions"]}): "
   params["input_directions"] = gets.chomp
+  
+  params.delete_if { |key, value| value.empty? }
+
   response = Unirest.patch("http://localhost:3000/recipes/#{recipe_id}", parameters: params)
   recipe = response.body
   pp recipe
