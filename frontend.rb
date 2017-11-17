@@ -7,6 +7,7 @@ puts "[1] See all recipes"
 puts "[2] Create a recipe"
 puts "[3] See one recipe"
 puts "[4] Update a recipe"
+puts "[5] Destroy a recipe"
 
 input_option = gets.chomp
 
@@ -55,4 +56,9 @@ elsif input_option == "4"
   response = Unirest.patch("http://localhost:3000/recipes/#{recipe_id}", parameters: params)
   recipe = response.body
   pp recipe
+elsif input_option == "5"
+  print "Which recipe id do you want to destroy? "
+  recipe_id = gets.chomp
+  response = Unirest.delete("http://localhost:3000/recipes/#{recipe_id}")
+  pp response.body
 end
