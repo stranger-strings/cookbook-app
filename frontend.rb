@@ -4,6 +4,7 @@ require "pp"
 system "clear"
 puts "Welcome to the Recipe app! Select an option:"
 puts "[1] See all recipes"
+puts "  [1.1] Search recipes by title"
 puts "[2] Create a recipe"
 puts "[3] See one recipe"
 puts "[4] Update a recipe"
@@ -13,6 +14,13 @@ input_option = gets.chomp
 
 if input_option == "1"
   response = Unirest.get("http://localhost:3000/recipes")
+  recipes = response.body
+  pp recipes
+elsif input_option == "1.1"
+  print "Enter search terms: "
+  search_terms = gets.chomp
+  puts "Here are the matching recipes:"
+  response = Unirest.get("http://localhost:3000/recipes?search=#{search_terms}")
   recipes = response.body
   pp recipes
 elsif input_option == "2"

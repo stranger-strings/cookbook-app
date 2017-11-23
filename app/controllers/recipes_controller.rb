@@ -1,6 +1,9 @@
 class RecipesController < ApplicationController
   def index
-    recipes = Recipe.all
+    recipes = Recipe.all.order(:id => :asc)
+    if params[:search]
+      recipes = recipes.where("title ILIKE ?", "%#{params[:search]}%")
+    end
     render json: recipes.as_json
   end
 
