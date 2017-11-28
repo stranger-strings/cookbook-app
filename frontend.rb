@@ -12,6 +12,8 @@ while true
   puts "[5] Destroy a recipe"
   puts
   puts "[signup] Signup (create a user)"
+  puts "[login] Login (create a JSON web token)"
+  puts "[logout] Logout (erase the JSON web token)"
   puts
   puts "[q] Quit"
 
@@ -86,6 +88,25 @@ while true
     params[:password_confirmation] = gets.chomp
     response = Unirest.post("http://localhost:3000/users", parameters: params)
     pp response.body
+  elsif input_option == "login"
+    puts "Login to the app"
+    params = {}
+    print "Email: "
+    params[:email] = gets.chomp
+    print "Password: "
+    params[:password] = gets.chomp
+    response = Unirest.post(
+      "http://localhost:3000/user_token",
+      parameters: {auth: {email: params[:email], password: params[:password]}}
+    )
+    pp response.body
+    # Save the JSON web token from the response
+    jwt = response.body["jwt"]
+    # Include the jwt in the headers of any future web requests
+    Unirest.default_header("Authorization", "Bearer #{jwt}")
+  elsif input_option == "logout"
+    jwt = ""
+    Unirest.clear_default_headers()
   elsif input_option == "q"
     puts "Goodbye!"
     break
