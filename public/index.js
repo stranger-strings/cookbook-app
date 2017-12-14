@@ -1,6 +1,6 @@
 /* global axios */
 
-axios.get("http://localhost:3000/recipes").then(function(response) {
+axios.get("/recipes").then(function(response) {
   var recipes = response.data;
   console.log(recipes);
 
