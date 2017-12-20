@@ -127,9 +127,44 @@ var LogoutPage = {
   }
 };
 
+var RecipesNewPage = {
+  template: "#recipes-new-page",
+  data: function() {
+    return {
+      title: "",
+      chef: "",
+      ingredients: "",
+      directions: "",
+      errors: []
+    };
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        input_title: this.title,
+        input_chef: this.chef,
+        input_ingredients: this.ingredients,
+        input_directions: this.directions
+      };
+      axios
+        .post("/recipes", params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+            router.push("/login");
+          }.bind(this)
+        );
+    }
+  }
+};
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: HomePage },
+    { path: "/recipes/new", component: RecipesNewPage },
     { path: "/recipes/:id", component: RecipesShowPage },
     { path: "/sample", component: SamplePage },
     { path: "/signup", component: SignupPage },
