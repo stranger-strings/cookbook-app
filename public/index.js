@@ -41,10 +41,23 @@ var RecipesShowPage = {
   computed: {}
 };
 
+var SamplePage = {
+  template: "#sample-page",
+  data: function() {
+    return {
+      message: "Welcome to a sample page!"
+    };
+  },
+  mounted: function() {},
+  methods: {},
+  computed: {}
+};
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: HomePage },
-    { path: "/recipes/:id", component: RecipesShowPage }
+    { path: "/recipes/:id", component: RecipesShowPage },
+    { path: "/sample", component: SamplePage }
   ]
 });
 

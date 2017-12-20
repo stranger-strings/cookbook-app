@@ -79,6 +79,8 @@
 
 
     </div>
+
+    <a href="/#/sample">Sample page</a>
   </div>
 </template>
 
@@ -91,5 +93,14 @@
     <p>{{ recipe.directions }}</p>
     <a href="/#/">Back to all recipes</a>
     <!-- <router-link v-bind:to="{ path: '/' }">Back to all recipes</router-link> -->
+  </div>
+</template>
+
+
+<template id="sample-page">
+  <div class="container">
+    <h1>{{ message }}</h1>
+    <p>This is something...</p>
+    <a href="/#/" class="btn btn-primary">Back to home</a>
   </div>
 </template>
