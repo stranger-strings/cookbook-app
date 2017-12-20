@@ -8,7 +8,7 @@ var HomePage = {
       recipes: []
     };
   },
-  mounted: function() {
+  created: function() {
     axios.get("/recipes").then(
       function(response) {
         this.recipes = response.data;
@@ -30,7 +30,7 @@ var RecipesShowPage = {
       }
     };
   },
-  mounted: function() {
+  created: function() {
     axios.get("/recipes/" + this.$route.params.id).then(
       function(response) {
         this.recipe = response.data;
@@ -48,7 +48,7 @@ var SamplePage = {
       message: "Welcome to a sample page!"
     };
   },
-  mounted: function() {},
+  created: function() {},
   methods: {},
   computed: {}
 };
@@ -120,7 +120,7 @@ var LoginPage = {
 };
 
 var LogoutPage = {
-  mounted: function() {
+  created: function() {
     axios.defaults.headers.common["Authorization"] = undefined;
     localStorage.removeItem("jwt");
     router.push("/");
@@ -176,7 +176,7 @@ var router = new VueRouter({
 var app = new Vue({
   el: "#app",
   router: router,
-  mounted: function() {
+  created: function() {
     var jwt = localStorage.getItem("jwt");
     if (jwt) {
       axios.defaults.headers.common["Authorization"] = jwt;
