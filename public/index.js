@@ -161,11 +161,56 @@ var RecipesNewPage = {
   }
 };
 
+var RecipesEditPage = {
+  template: "#recipes-edit-page",
+  data: function() {
+    return {
+      title: "",
+      chef: "",
+      ingredients: "",
+      directions: "",
+      errors: []
+    };
+  },
+  created: function() {
+    axios.get("/recipes/" + this.$route.params.id).then(
+      function(response) {
+        this.title = response.data.title;
+        this.chef = response.data.chef;
+        this.ingredients = response.data.ingredients;
+        this.directions = response.data.directions;
+      }.bind(this)
+    );
+  },
+  methods: {
+    submit: function() {
+      var params = {
+        input_title: this.title,
+        input_chef: this.chef,
+        input_ingredients: this.ingredients,
+        input_directions: this.directions
+      };
+      axios
+        .patch("/recipes/" + this.$route.params.id, params)
+        .then(function(response) {
+          router.push("/");
+        })
+        .catch(
+          function(error) {
+            this.errors = error.response.data.errors;
+            router.push("/login");
+          }.bind(this)
+        );
+    }
+  }
+};
+
 var router = new VueRouter({
   routes: [
     { path: "/", component: HomePage },
     { path: "/recipes/new", component: RecipesNewPage },
     { path: "/recipes/:id", component: RecipesShowPage },
+    { path: "/recipes/:id/edit", component: RecipesEditPage },
     { path: "/sample", component: SamplePage },
     { path: "/signup", component: SignupPage },
     { path: "/login", component: LoginPage },
