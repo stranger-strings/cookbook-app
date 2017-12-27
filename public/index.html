@@ -67,9 +67,9 @@
       <option v-for="recipe in recipes">{{ recipe.title }}</option>
     </datalist>
     <input type="text" v-model="chefFilter" placeholder="Search by chef">
-    <div class="row">
+    <div class="row" is="transition-group" name="bounce">
 
-      <div class="col-md-4" v-for="recipe in recipes" v-if="isValidRecipe(recipe)">
+      <div class="col-md-4" v-for="recipe in recipes" v-if="isValidRecipe(recipe)" v-bind:key="recipe.id">
         <div class="card mb-2">
           <img class="card-img-top" v-bind:src="recipe.image" alt="Card image cap">
           <div class="card-body">
@@ -85,7 +85,6 @@
           </div>
         </div>
       </div>
-
 
     </div>
 
