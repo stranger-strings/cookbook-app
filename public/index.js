@@ -23,7 +23,9 @@ var HomePage = {
     },
     isValidRecipe: function(inputRecipe) {
       // return inputRecipe.title.indexOf(this.titleFilter) !== -1;
-      return inputRecipe.title.includes(this.titleFilter);
+      return inputRecipe.title
+        .toLowerCase()
+        .includes(this.titleFilter.toLowerCase());
     }
   },
   computed: {}
