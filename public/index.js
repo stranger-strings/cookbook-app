@@ -9,7 +9,8 @@ var HomePage = {
       currentRecipe: {},
       titleFilter: "",
       chefFilter: "",
-      sortAttribute: "title"
+      sortAttribute: "title",
+      sortAscending: true
     };
   },
   created: function() {
@@ -35,13 +36,18 @@ var HomePage = {
     },
     changeSortAttribute: function(inputAttribute) {
       this.sortAttribute = inputAttribute;
+      this.sortAscending = !this.sortAscending;
     }
   },
   computed: {
     sortedRecipes: function() {
       return this.recipes.sort(
         function(recipe1, recipe2) {
-          return recipe1[this.sortAttribute] > recipe2[this.sortAttribute];
+          if (this.sortAscending === true) {
+            return recipe1[this.sortAttribute] > recipe2[this.sortAttribute];
+          } else {
+            return recipe1[this.sortAttribute] < recipe2[this.sortAttribute];
+          }
         }.bind(this)
       );
     }
