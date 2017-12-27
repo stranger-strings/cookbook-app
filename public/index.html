@@ -62,6 +62,13 @@
 <template id="home-page">
   <div class="container">
     <h1>All recipes</h1>
+
+    <div>
+      <button v-on:click="changeSortAttribute('title')">Sort by title</button>
+      <button v-on:click="changeSortAttribute('chef')">Sort by chef</button>
+    </div>
+
+
     <input type="text" v-model="titleFilter" placeholder="Search by title" list="titles">
     <datalist id="titles">
       <option v-for="recipe in recipes">{{ recipe.title }}</option>
@@ -69,7 +76,7 @@
     <input type="text" v-model="chefFilter" placeholder="Search by chef">
     <div class="row" is="transition-group" name="bounce">
 
-      <div class="col-md-4" v-for="recipe in recipes" v-if="isValidRecipe(recipe)" v-bind:key="recipe.id">
+      <div class="col-md-4" v-for="recipe in sortedRecipes" v-if="isValidRecipe(recipe)" v-bind:key="recipe.id">
         <div class="card mb-2">
           <img class="card-img-top" v-bind:src="recipe.image" alt="Card image cap">
           <div class="card-body">

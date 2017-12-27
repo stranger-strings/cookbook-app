@@ -8,7 +8,8 @@ var HomePage = {
       recipes: [],
       currentRecipe: {},
       titleFilter: "",
-      chefFilter: ""
+      chefFilter: "",
+      sortAttribute: "title"
     };
   },
   created: function() {
@@ -31,9 +32,20 @@ var HomePage = {
         .toLowerCase()
         .includes(this.chefFilter.toLowerCase());
       return validTitle && validChef;
+    },
+    changeSortAttribute: function(inputAttribute) {
+      this.sortAttribute = inputAttribute;
     }
   },
-  computed: {}
+  computed: {
+    sortedRecipes: function() {
+      return this.recipes.sort(
+        function(recipe1, recipe2) {
+          return recipe1[this.sortAttribute] > recipe2[this.sortAttribute];
+        }.bind(this)
+      );
+    }
+  }
 };
 
 var RecipesShowPage = {
