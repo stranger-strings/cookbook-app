@@ -62,7 +62,10 @@
 <template id="home-page">
   <div class="container">
     <h1>All recipes</h1>
-    <input type="text" v-model="titleFilter" placeholder="Search by title">
+    <input type="text" v-model="titleFilter" placeholder="Search by title" list="titles">
+    <datalist id="titles">
+      <option v-for="recipe in recipes">{{ recipe.title }}</option>
+    </datalist>
     <input type="text" v-model="chefFilter" placeholder="Search by chef">
     <div class="row">
 
