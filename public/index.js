@@ -7,7 +7,8 @@ var HomePage = {
       message: "Welcome to Vue.js!",
       recipes: [],
       currentRecipe: {},
-      titleFilter: ""
+      titleFilter: "",
+      chefFilter: ""
     };
   },
   created: function() {
@@ -23,9 +24,13 @@ var HomePage = {
     },
     isValidRecipe: function(inputRecipe) {
       // return inputRecipe.title.indexOf(this.titleFilter) !== -1;
-      return inputRecipe.title
+      var validTitle = inputRecipe.title
         .toLowerCase()
         .includes(this.titleFilter.toLowerCase());
+      var validChef = inputRecipe.chef
+        .toLowerCase()
+        .includes(this.chefFilter.toLowerCase());
+      return validTitle && validChef;
     }
   },
   computed: {}
