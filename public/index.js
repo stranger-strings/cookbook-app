@@ -6,7 +6,8 @@ var HomePage = {
     return {
       message: "Welcome to Vue.js!",
       recipes: [],
-      currentRecipe: {}
+      currentRecipe: {},
+      titleFilter: ""
     };
   },
   created: function() {
@@ -19,6 +20,10 @@ var HomePage = {
   methods: {
     setCurrentRecipe: function(inputRecipe) {
       this.currentRecipe = inputRecipe;
+    },
+    isValidRecipe: function(inputRecipe) {
+      // return inputRecipe.title.indexOf(this.titleFilter) !== -1;
+      return inputRecipe.title.includes(this.titleFilter);
     }
   },
   computed: {}
